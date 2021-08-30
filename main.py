@@ -11,11 +11,6 @@ from tools import hashing
 from datetime import datetime
 
 
-"""
-REPLACE ENV CODE!!!
-"""
-
-
 load_dotenv()
 app = FastAPI()
 deta = Deta(os.getenv("DETA_TOKEN"))
