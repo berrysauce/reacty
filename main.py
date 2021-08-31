@@ -14,7 +14,7 @@ from datetime import datetime
 load_dotenv()
 app = FastAPI()
 deta = Deta(os.getenv("DETA_TOKEN"))
-sitesdb = deta.Base("feeed-sites")
+sitesdb = deta.Base("reacty-sites")
 templates = Jinja2Templates(directory="templates")
 
 app.mount("/assets", StaticFiles(directory="templates/assets"), name="assets")
