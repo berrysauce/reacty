@@ -1,5 +1,5 @@
 document.write(`
-    <div role="alert" id="reactyWidget" style="border-radius: 10px;border: 1px gray solid;font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,Liberation Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji, sans-serif;opacity: 1;background: rgba(0,0,0,0.85);padding: 10px;position: fixed;bottom: 0;left: 0;margin-left: 20px;margin-right: 20px;margin-bottom: 20px;z-index: 99;opacity: 1;-webkit-transition: opacity 1000ms linear;transition: opacity 1000ms linear;">
+    <div role="alert" id="reactyWidget" style="border-radius: 10px;border: 1px gray solid;font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,Liberation Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji, sans-serif;opacity: 1;background: rgba(0,0,0,0.85);padding: 10px;position: fixed;bottom: 0;left: 0;margin-left: 20px;margin-right: 20px;margin-bottom: 20px;z-index: 99;opacity: 1;-webkit-transition: opacity 1000ms linear;transition: opacity 1000ms linear;visibility: hidden;">
         <div role="alert" style="padding: 12px;padding-bottom: 0px;">
             <div style="text-align: center; margin-bottom: 15px;">
                 <strong id="widgetTitle" style="color: rgb(255,255,255);font-size: 20px;line-height: 26px;font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,Liberation Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji, sans-serif;max-width: 250px;display: block;">[widgettext]<br /></strong>
@@ -16,7 +16,14 @@ document.write(`
     </div>
 
     <script>
+        if (localStorage.reactyState) {
+            console.log()
+        } else {
+            document.getElementById("reactyWidget").style.visibility = "visible";
+        }
+
         function closeWidget() {
+            localStorage.reactyState = "shown";
             const widget = document.getElementById("reactyWidget")
             widget.style.opacity = '0';
             setTimeout(function(){widget.style.visibility = "hidden";}, 1000);
