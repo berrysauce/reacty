@@ -1,5 +1,12 @@
-# reacty
-Simple feedback widget
+<p align="center">
+  <img alt="reactyy Logo" src="https://cdn.labs.brry.cc/file/20d217d8-ca63-4f6e-b2f0-99897ef684ae" width="350px">
+</p>
+<p align="center">
+  <img alt="Deploy status" src="https://github.com/berrysauce/reacty/actions/workflows/deploy.yml/badge.svg">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/berrysauce/reacty">
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/berrysauce/reacty">
+</p>
+<p align="center">Simple feedback widget</p>
 
 ## License
 reacty - A simple and privacy oriented website feedback widget.
