@@ -4,3 +4,5 @@ aiofiles
 deta
 python-dotenv
 jinja2
+python-multipart
+python-jose[cryptography]
