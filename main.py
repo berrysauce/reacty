@@ -1,5 +1,5 @@
 import uvicorn
-from fastapi import FastAPI, Response, Request, HTTPException, Form, status, Depends, Cookie
+from fastapi import FastAPI, Response, Request, HTTPException, Form, status, Depends, Cookie, Header
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse
@@ -171,10 +171,16 @@ def widgetjs(key: str):
     return Response(content=widget, media_type="text/javascript")
 
 @app.get("/api/{key}/report/{feedback}")
-def getfeedback(key: str, feedback: str):
+def getfeedback(key: str, feedback: str, origin: Optional[str] = Header(None)):
     site = sitesdb.get(key)
     if not site:
         raise HTTPException(status_code=404, detail="Site key not found")
+    
+    if origin is None:
+        raise HTTPException(status_code=400, detail="Wrong or missing headers")
+    elif origin != site["domain"]:
+        raise HTTPException(status_code=400, detail="Wrong or missing headers")
+    
     if feedback == "1":
         newamount = site["feedback"]["positive"] + 1
         sitesdb.update(key=key, updates={

@@ -7,4 +7,20 @@
   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
   <path d="M12 9v2m0 4v.01"></path>
   <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
-</svg>&nbsp;Danger zone</p><p style="color: rgb(171,171,171);">Make sure you know what you're doing. These actions can <strong><span style="text-decoration: underline;">NOT</span></strong> be undone.<br><br><a class="btn btn-primary" role="button" style="background: var(--bs-red);border-radius: 10px;border-style: none;padding: 8px 18px;" href="/api/clear">Clear Feedback</a>&nbsp; &nbsp;<a class="btn btn-primary" role="button" style="background: var(--bs-red);border-radius: 10px;border-style: none;padding: 8px 18px;" href="/api/delete">Delete Widget</a><br></p></div></section><footer class="footer-basic" style="background: rgba(255,255,255,0);"><ul class="list-inline" style="color: rgb(255,255,255);font-size: 14px;"><li class="list-inline-item"><a href="#">Home</a></li><li class="list-inline-item"><a href="#">Help</a></li><li class="list-inline-item"><a href="#">GitHub</a></li><li class="list-inline-item"><a href="#">Terms</a></li><li class="list-inline-item"><a href="#">Privacy</a></li></ul><p class="copyright" style="margin-top: 10px;">reacty by berrysauce © 2021</p></footer><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script><script src="assets/js/script.min.js"></script></body></html>
+</svg>&nbsp;Danger zone</p><p style="color: rgb(171,171,171);">Make sure you know what you're doing. These actions can <strong><span style="text-decoration: underline;">NOT</span></strong> be undone.<br><br><a class="btn btn-primary" role="button" style="background: var(--bs-red);border-radius: 10px;border-style: none;padding: 8px 18px;" onclick="clearFeedback()">Clear Feedback</a>
+<script>
+    function clearFeedback() {
+        var ask = confirm("Are you sure you want to clear your feedback?");
+        if (ask == true) {
+           window.location = "/api/clear"; 
+        };  
+    };
+</script>&nbsp; &nbsp;<a class="btn btn-primary" role="button" style="background: var(--bs-red);border-radius: 10px;border-style: none;padding: 8px 18px;" onclick="deleteSite()">Delete Widget</a>
+<script>
+    function deleteSite() {
+        var ask = confirm("Do you really want to delete your account? This is NOT reversable!");
+        if (ask == true) {
+           window.location = "/api/delete"; 
+        };  
+    };
+</script><br></p></div></section><footer class="footer-basic" style="background: rgba(255,255,255,0);"><ul class="list-inline" style="color: rgb(255,255,255);font-size: 14px;"><li class="list-inline-item"><a href="#">Home</a></li><li class="list-inline-item"><a href="#">Help</a></li><li class="list-inline-item"><a href="#">GitHub</a></li><li class="list-inline-item"><a href="#">Terms</a></li><li class="list-inline-item"><a href="#">Privacy</a></li></ul><p class="copyright" style="margin-top: 10px;">reacty by berrysauce © 2021</p></footer><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script><script src="assets/js/script.min.js"></script></body></html>
