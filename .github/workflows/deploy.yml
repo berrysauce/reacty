@@ -9,5 +9,5 @@ jobs:
       - uses: BogDAAAMN/deta-deploy-action@v1.0.0
         with:
           deta-access-token: ${{ secrets.DETA_TOKEN }} #Deta access token https://docs.deta.sh/docs/cli/auth
-          deta-name: "reacty-testing" #Deta Micro name https://docs.deta.sh/docs/cli/commands/#deta-clone
+          deta-name: "reacty-main" #Deta Micro name https://docs.deta.sh/docs/cli/commands/#deta-clone
           deta-project: "reacty" #Deta project name https://docs.deta.sh/docs/cli/commands/#deta-clone
