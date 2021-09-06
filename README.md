@@ -3,6 +3,7 @@
 </p>
 <p align="center">
   <img alt="Deploy status" src="https://github.com/berrysauce/reacty/actions/workflows/deploy.yml/badge.svg">
+  <img alt="CodeQL status" src="https://github.com/berrysauce/reacty/actions/workflows/codeql-analysis.yml/badge.svg">
   <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/berrysauce/reacty">
   <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/berrysauce/reacty">
   <img alt="Website" src="https://img.shields.io/website?down_color=red&down_message=down&up_color=green&up_message=up&url=https%3A%2F%2Freacty.net">
