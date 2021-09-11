@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <url>
-        <loc>/dashboard.html</loc>
+        <loc>https://reacty.net/dashboard.html</loc>
     </url>
     <url>
-        <loc>/error.html</loc>
+        <loc>https://reacty.net/error.html</loc>
     </url>
     <url>
-        <loc>/index.html</loc>
+        <loc>https://reacty.net/how.html</loc>
     </url>
     <url>
-        <loc>/login.html</loc>
+        <loc>https://reacty.net/index.html</loc>
     </url>
     <url>
-        <loc>/pricing.html</loc>
+        <loc>https://reacty.net/login.html</loc>
     </url>
     <url>
-        <loc>/signup.html</loc>
+        <loc>https://reacty.net/pricing.html</loc>
+    </url>
+    <url>
+        <loc>https://reacty.net/signup.html</loc>
     </url>
 </urlset>
