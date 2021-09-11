@@ -120,6 +120,9 @@ def loginauth(response: Response, username: str = Form(...), password: str = For
     
     if hashing.verifypw(site["password"], password) is False:
         raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed. (Logged out)")
+    
+    if site["locked"] is True:
+        raise HTTPException(status_code=401, detail="This account was locked. Contact support for further details.")
 
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = createtoken(
@@ -171,6 +174,10 @@ def widgetjs(key: str):
     site = sitesdb.get(key)
     if site is False:
         raise HTTPException(status_code=404, detail="Site key not found")
+    
+    if site["locked"] is True:
+        raise HTTPException(status_code=401, detail="This account was locked. Contact support for further details.")
+    
     with open("tools/widget.js", "r") as f:
         widget = str(f.read())
         widget = widget.replace("[webkey]", key)
@@ -182,6 +189,9 @@ def getfeedback(key: str, feedback: str, origin: Optional[str] = Header(None)):
     site = sitesdb.get(key)
     if not site:
         raise HTTPException(status_code=404, detail="Site key not found")
+    
+    if site["locked"] is True:
+        raise HTTPException(status_code=401, detail="This account was locked. Contact support for further details.")
     
     if origin is None:
         raise HTTPException(status_code=400, detail="Wrong or missing headers")
