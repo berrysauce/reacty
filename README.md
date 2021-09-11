@@ -10,6 +10,8 @@
 </p>
 <p align="center">Finally, a simple and privacy oriented website feedback widget</p>
 
+> ⚠ reacty is still a work-in-progress project. I can not guarantee a safe environment and stats could be cleared at any time. Please remember to choose a different password for every online service.
+
 ## What is reacty?
 It's a feedback widget you can implement in your site with one line of code. It's responsive, works across platforms, and it doesn't collect user specific data.
 
@@ -19,20 +21,20 @@ It's a feedback widget you can implement in your site with one line of code. It'
 3. See the feedback of your users roll in
 
 ## Frequently Asked Questions
->Q: Does reacty use cookies?\
->A: No, but reacty uses the browser's local storage to only display the widget once (if the user answered or closed it).
+💬 *Does reacty use cookies?*\
+No, but reacty uses the browser's local storage to only display the widget once (if the user answered or closed it).
 
->Q: Why is reacty free?\
->A: It's free because I barely have any costs. reacty is hosted serverlessly and the data is on Deta's NoSQL database.
+💬 *Why is reacty free?*\
+It's free because I barely have any costs. reacty is hosted serverlessly and the data is on Deta's NoSQL database.
 
->Q: How secure is reacty?\
->A: reacty is built with security and privacy in mind. Passwords are hashed, salted, and stored on an encrypted database. Feedback can only be submitted through your website. Still, you should never use the same password for multiple services.
+💬 *How secure is reacty?*\
+reacty is built with security and privacy in mind. Passwords are hashed, salted, and stored on an encrypted database. Feedback can only be submitted through your website. Still, you should never use the same password for multiple services.
 
->Q: What kinds of data does reacty collect/store?\
->A: It only stores data like login info and preferences. For feedback collection, reacty only stores the feedback counts.
+💬 *What kinds of data does reacty collect/store?*\
+It only stores data like login info and preferences. For feedback collection, reacty only stores the feedback counts.
 
->Q: Does the widget influence my website's load times?\
->A: Not largely. Speed is a big priority, that's why reacty is optimized for fast loading speeds.
+💬 *Does the widget influence my website's load times?*\
+Not largely. Speed is a big priority, that's why reacty is optimized for fast loading speeds.
 
 ## License
 reacty - A simple and privacy oriented website feedback widget.
