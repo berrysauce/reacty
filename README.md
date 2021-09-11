@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="reactyy Logo" src="https://cdn.labs.brry.cc/file/20d217d8-ca63-4f6e-b2f0-99897ef684ae" width="350px">
+  <img alt="reacty Logo" src="https://cdn.labs.brry.cc/file/20d217d8-ca63-4f6e-b2f0-99897ef684ae" width="350px">
 </p>
 <p align="center">
   <img alt="Deploy status" src="https://github.com/berrysauce/reacty/actions/workflows/deploy.yml/badge.svg">
