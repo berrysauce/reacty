@@ -32,7 +32,7 @@ app.mount("/assets", StaticFiles(directory="templates/assets"), name="assets")
 SECRET_KEY = str(os.getenv("AUTH_SECRET"))
 ALGORITHM = "HS256"
 # PRODUCTION EXPIRY: 720
-ACCESS_TOKEN_EXPIRE_MINUTES = 720
+ACCESS_TOKEN_EXPIRE_MINUTES = 2
 
 def createtoken(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
@@ -46,18 +46,18 @@ def createtoken(data: dict, expires_delta: Optional[timedelta] = None):
 
 def get_current_user(access_token: Optional[str] = Cookie(None)):
     if access_token is None:
-        raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed. (Logged out)")
+        raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed.")
     
     try:
         payload = jwt.decode(access_token, SECRET_KEY, algorithms=[ALGORITHM])
         key: str = payload.get("sub")
         if key is None:
-            raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed. (Logged out)")
+            raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed.")
     except JWTError:
-        raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed. (Logged out)")
+        raise HTTPException(status_code=401, detail="Unauthorized. Session expired.")
     site = sitesdb.get(key)
     if site is False:
-        raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed. (Logged out)")
+        raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed.")
     return site["key"]
 
 class Site(BaseModel):
@@ -116,10 +116,10 @@ def loginauth(response: Response, username: str = Form(...), password: str = For
     try:
         site = sitesdb.fetch({"domain": domain}).items[0]
     except IndexError:
-        raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed. (Logged out)")
+        raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed.")
     
     if hashing.verifypw(site["password"], password) is False:
-        raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed. (Logged out)")
+        raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed.")
     
     if site["locked"] is True:
         raise HTTPException(status_code=401, detail="This account was locked. Contact support for further details.")
