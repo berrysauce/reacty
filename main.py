@@ -32,7 +32,7 @@ app.mount("/assets", StaticFiles(directory="templates/assets"), name="assets")
 SECRET_KEY = str(os.getenv("AUTH_SECRET"))
 ALGORITHM = "HS256"
 # PRODUCTION EXPIRY: 720
-ACCESS_TOKEN_EXPIRE_MINUTES = 2
+ACCESS_TOKEN_EXPIRE_MINUTES = 720
 
 def createtoken(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
