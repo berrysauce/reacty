@@ -12,7 +12,14 @@ from dotenv import load_dotenv
 import os
 from tools import hashing
 from datetime import datetime, timedelta
+import sentry_sdk
 
+
+# Initialize Sentry
+sentry_sdk.init(
+    "https://945096747f3a40a68a51ed8d493be8d8@o309026.ingest.sentry.io/5955006",
+    traces_sample_rate=1.0
+)
 
 load_dotenv()
 app = FastAPI()

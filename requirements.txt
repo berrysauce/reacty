@@ -6,3 +6,4 @@ python-dotenv
 jinja2
 python-multipart
 python-jose[cryptography]
+sentry-sdk
