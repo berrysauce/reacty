@@ -51,7 +51,8 @@ def createtoken(data: dict, expires_delta: Optional[timedelta] = None):
 
 def get_current_user(access_token: Optional[str] = Cookie(None)):
     if access_token is None:
-        raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed.")
+        #raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed.")
+        return None
     
     try:
         payload = jwt.decode(access_token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -109,6 +110,8 @@ def root(request: Request):
 
 @app.get("/dashboard")
 def dashboard(request: Request, key: str = Depends(get_current_user)):
+    if key is None:
+        return RedirectResponse(url="/login", status_code=status.HTTP_303_SEE_OTHER)
     site = sitesdb.get(key)
         
     return templates.TemplateResponse("dashboard.html", {
