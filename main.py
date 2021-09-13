@@ -13,6 +13,8 @@ import os
 from tools import hashing
 from datetime import datetime, timedelta
 import sentry_sdk
+import requests
+import json
 
 
 # Initialize Sentry
@@ -59,6 +61,14 @@ def get_current_user(access_token: Optional[str] = Cookie(None)):
     if site is False:
         raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed.")
     return site["key"]
+
+def verifycaptcha(response: str):
+    data = {"secret": str(os.getenv("CAPTCHA_SECRET")), "response": response}
+    r = requests.post("https://hcaptcha.com/siteverify", data=data)
+    if r.status_code == 200 and json.loads(r.text)["success"] == True:
+        return True
+    else:
+        return False
 
 class Site(BaseModel):
     key: str
@@ -115,8 +125,14 @@ def dashboard(request: Request, key: str = Depends(get_current_user)):
 -----------------------------------------------------------------------------
 """
 @app.post("/login/auth")
-def loginauth(response: Response, username: str = Form(...), password: str = Form(...)):
+def loginauth(response: Response, username: str = Form(...), password: str = Form(...), captcha: str = Form(None, alias="h-captcha-response")):
     domain = username
+    if captcha is None:
+        raise HTTPException(status_code=401, detail="Unauthorized. Captcha failed.")
+    else:
+        if verifycaptcha(captcha) is False:
+            raise HTTPException(status_code=401, detail="Unauthorized. Captcha failed.")
+    
     try:
         site = sitesdb.fetch({"domain": domain}).items[0]
     except IndexError:
