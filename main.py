@@ -24,7 +24,10 @@ sentry_sdk.init(
 )
 
 load_dotenv()
-app = FastAPI()
+app = FastAPI(
+    docs_url=None,
+    redoc_url=None
+)
 deta = Deta(os.getenv("DETA_TOKEN"))
 sitesdb = deta.Base("reacty-sites")
 templates = Jinja2Templates(directory="templates")
