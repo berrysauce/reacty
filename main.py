@@ -92,13 +92,13 @@ class LoginSite(BaseModel):
 def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-@app.get("/how")
+@app.get("/terms")
 def root(request: Request):
-    return templates.TemplateResponse("how.html", {"request": request})
+    return templates.TemplateResponse("terms.html", {"request": request})
 
-@app.get("/pricing")
+@app.get("/privacy")
 def root(request: Request):
-    return templates.TemplateResponse("pricing.html", {"request": request})
+    return templates.TemplateResponse("privacy.html", {"request": request})
 
 @app.get("/login")
 def root(request: Request):

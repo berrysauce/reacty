@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" style="background: rgb(251,251,251);"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"><title>reacty » User feedback, but simple</title><meta name="description" content="Collecting user feedback in a simple and privacy friendly way is easy with reacty. Sign up for free."><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:100,200,300,400,500,600,700,800,900&amp;display=swap"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"><link rel="stylesheet" href="assets/css/styles.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"><script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"><title>reacty » User feedback, but simple</title><meta name="description" content="Collecting user feedback in a simple and privacy friendly way is easy with reacty. Sign up for free."><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:100,200,300,400,500,600,700,800,900&amp;display=swap"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"><link rel="stylesheet" href="assets/css/styles.min.css"><script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
@@ -8,66 +8,5 @@
 <meta name="msapplication-TileColor" content="#00a300">
 <meta name="msapplication-config" content="/assets/img/browserconfig.xml">
 <meta name="theme-color" content="#ffffff">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
-</head><body style="background: rgb(251,251,251);font-family: Inter, sans-serif;"><nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background: rgba(0,0,0,0);margin-top: 10px;"><div class="container"><a class="navbar-brand" href="/" style="font-family: Inter, sans-serif;"><img src="assets/img/logo-black.png" style="width: 145px;"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1" style="border-radius: 10px;background: #a0f9a9;border-color: rgba(0,108,11,0);"><span class="visually-hidden">Toggle navigation</span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-menu-2" style="color: rgb(0,108,11);font-size: 25px;">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-  <line x1="4" y1="6" x2="20" y2="6"></line>
-  <line x1="4" y1="12" x2="20" y2="12"></line>
-  <line x1="4" y1="18" x2="20" y2="18"></line>
-</svg></button><div class="collapse navbar-collapse" id="navcol-1" style="font-family: Inter, sans-serif;"><ul class="navbar-nav ms-auto"><li class="nav-item"><a class="nav-link" href="/how" style="color: rgb(0,0,0);">How it works</a></li><li class="nav-item"><a class="nav-link" href="/pricing" style="color: rgb(0,0,0);">Pricing</a></li><li class="nav-item"><a class="nav-link" href="/help" style="color: rgb(0,0,0);">Help</a></li><li class="nav-item"><a class="nav-link" href="/login" style="color: rgb(0,0,0);">Log in</a></li><li class="nav-item"><a class="nav-link" href="/signup" style="background: linear-gradient(135deg, rgb(174,248,181), #a0f9a9), #07d21b;border-radius: 10px;margin-left: 15px;color: rgb(0,108,11);"><strong>Sign up</strong></a></li></ul></div></div></nav><div role="alert" class="alert alert-success" style="border-radius: 10px;background: rgb(255,122,0);border-style: none;color: rgb(255,255,255);margin-left: auto;margin-right: auto;max-width: 70%;"><span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-alert-circle" style="margin-bottom: 5px;font-size: 25px;">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <circle cx="12" cy="12" r="9"></circle>
-            <line x1="12" y1="8" x2="12" y2="12"></line>
-            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-        </svg><strong>  Reacty is still in very early beta</strong></span>
-    <p style="margin-bottom: 0px;color: rgb(0,0,0);">It&#39;s <span style="text-decoration: underline;">NOT</span> recommended to use reacty in any live projects. You might <span style="text-decoration: underline;">AT ANY TIME</span> lose access to your dashboard. I do not take any responsibility for account security since it&#39;s still being worked on.<br /><br />Follow <a href="https://twitter.com/theberrysauce" target="_blank">@theberrysauce</a> for updates if you&#39;d like to know when reacty is released.</p>
-</div><section class="contact-clean" style="background: rgba(0,0,0,0);margin-top: 5vh;margin-bottom: 5vh;"><form method="post" style="font-family: Inter, sans-serif;background: #ffffff;border-radius: 10px;" action="/api/create" enctype="multipart/form-data"><h2 class="text-center" style="color: rgb(0,0,0);line-height: 55.6px;margin-bottom: 10px;">Sign up</h2><div style="padding: 8px 18px;margin-bottom: 25px;margin-top: 15px;border-radius: 10px;background: #a6f9ae;"><p style="margin-bottom: 0px;color: rgb(0,108,11);"><strong>Free, forever.</strong><br>There are no paid plans. reacty doesn't cost anything to use.</p></div><div class="mb-3"><p style="margin-bottom: 5px;color: rgb(0,0,0);">First, enter your website's domain (with https://):</p><input class="form-control" type="url" style="margin-bottom: 25px;background: rgb(238,238,238);border-style: none;border-radius: 10px;color: rgb(18,18,18)!important;" name="username" placeholder="Domain" required=""></div><div class="mb-3"><p style="margin-bottom: 5px;color: rgb(0,0,0);">Then enter a password for your dashboard:</p><style>
-    #password {
-    }
-    #password label {
-        display: block;
-    }
-    #password-input {
-        padding: 10px;
-        margin: 10px 0 5px 0;
-    }
-    #password-strength {
-        height: 5px;
-        width: 100%;
-        display: block;
-        background-color: #ccc;
-        border-radius: 10px;
-    }
-    #password-strength span {
-        display: block;
-        height: 5px;
-        border-radius: 2px;
-        transition: all 500ms ease;
-    }
-    .strength-0 span {
-        background-color: red;
-        width: 5%;
-    }
-    .strength-1 span {
-        background-color: orangered;
-        width: 25%;
-    }
-    .strength-2 span {
-        background-color: orange;
-        width: 50%;
-    }
-    .strength-3 span {
-        background-color: yellowgreen;
-        width: 75%;
-    }
-    .strength-4 span {
-        background-color: green;
-        width: 100%;
-    }
-</style>
-
-<div id="password">
-    <input id="password-input" type="password" class="form-control" style="background: rgb(238,238,238);border-style: none;border-radius: 10px;color: rgb(18,18,18)!important;margin-bottom: 5px;" name="password" placeholder="Password" required />
-    <div id="password-strength"><span></span></div>
-    <p id="password-feedback"></p>
-</div></div><div class="h-captcha" data-sitekey="6bd5882a-dcaa-44a6-a43b-1588bc6e14be"></div><div class="d-xxl-flex align-items-xxl-center mb-3" style="margin-top: 30px;"><button class="btn btn-primary" type="submit" style="padding: 8px 18px;text-transform: none;background: linear-gradient(135deg, rgb(174,248,181) 0%, #a0f9a9), var(--bs-blue);font-family: Inter, sans-serif;border-radius: 10px;margin-top: 0px;color: rgb(0,108,11);"><strong>Sign up</strong></button><a href="/login" style="margin-left: 20px;font-size: 14px;color: rgb(0,108,11);">Log in</a></div></form></section><footer class="footer-basic" style="background: rgba(255,255,255,0);"><ul class="list-inline" style="color: rgb(112,112,112);font-size: 14px;"><li class="list-inline-item"><a href="/">Home</a></li><li class="list-inline-item"><a href="/help">Help</a></li><li class="list-inline-item"><a href="https://github.com/berrysauce/reacty" target="_blank">GitHub</a></li><li class="list-inline-item"><a href="https://berrysauce.me/terms.html">Terms</a></li><li class="list-inline-item"><a href="https://berrysauce.me/privacy.html">Privacy</a></li></ul><p class="copyright" style="margin-top: 10px;">reacty by berrysauce © 2021</p></footer><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script><script src="assets/js/script.min.js"></script></body></html>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c5d1704791d642f9a64b5086a05c691a"}'></script><!-- End Cloudflare Web Analytics -->
+</head><body style="font-family: Inter, sans-serif;"><section class="highlight-clean" style="min-height: 80vh;"><div class="container d-flex d-xl-flex justify-content-center justify-content-xl-center align-items-xl-center" style="margin-bottom: 60px;"><nav class="navbar navbar-light navbar-expand-md navigation-clean" style="min-width: 80%;max-width: 80%;"><div class="container"><a class="navbar-brand" href="/" style="margin-left: -20px;"><img src="assets/img/logo-black.png" style="width: 135px;margin-left: 0px;"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navcol-1"><ul class="navbar-nav ms-auto"><li class="nav-item"><a class="nav-link" href="/" style="color: rgb(0,108,11)!important;"><strong>Get started</strong></a></li><li class="nav-item"><a class="nav-link" href="https://docs.reacty.net" style="color: rgb(0,108,11)!important;" target="_blank"><strong>Help</strong></a></li><li class="nav-item"><a class="nav-link" href="/login" style="color: rgb(0,108,11)!important;"><strong>Log in</strong></a></li><li class="nav-item"><a class="nav-link" href="/signup" style="color: rgb(0,108,11)!important;border-radius: 10px;background: #a0f9a9;margin-left: 10px;margin-right: -10px;"><strong>Sign up</strong></a></li></ul></div></div></nav></div><div class="container" style="margin-top: 80px;margin-bottom: 100px;"><div class="intro"><h2 class="text-start" style="margin-bottom: 5px;color: rgb(0,0,0);">Sign up</h2><p class="text-start">Create your reacty account here. No worries, if you don't want the account anymore, delete it with 2 clicks in the dashboard.</p><div class="alert alert-warning" role="alert" style="background: rgba(255,172,48,0.42);color: rgb(180,119,49);border-color: rgb(230,176,95);margin-bottom: 30px;"><span style="color: rgb(142,76,2);"><strong>reacty is still in a very early beta. </strong>I can not guarantee security or reliability at this moment.<br></span></div></div><div class="intro"><form action="/api/create" method="post" enctype="multipart/form-data"><small class="form-text">Domain (with http:// or https://)</small><input class="form-control" type="url" style="margin-bottom: 10px;" name="username" placeholder="Domain" required=""><small class="form-text">Password</small><input class="form-control" type="password" style="margin-bottom: 15px;" name="password" placeholder="Password" required=""><div class="h-captcha" data-sitekey="6bd5882a-dcaa-44a6-a43b-1588bc6e14be"></div><div class="row" style="margin-top: 25px;"><div class="col-xl-3"><button class="btn btn-primary" type="submit" style="border-radius: 10px;background: rgb(160,249,169);color: rgb(0,108,11)!important;border-width: 0px;border-right-width: 0px;border-right-style: none;"><strong>Sign up</strong></button></div><div class="col"><p class="text-start" style="font-size: 12px;margin-top: 0px;">By clicking the "Sign up" button you agree to the Terms of Service and Privacy Policy.</p></div></div></form></div></div></section><footer class="footer-basic" style="margin-top: -15px;"><ul class="list-inline" style="font-size: 14px;"><li class="list-inline-item"><a href="/">Home</a></li><li class="list-inline-item"><a href="https://docs.reacty.net" target="_blank">Help</a></li><li class="list-inline-item"><a href="https://github.com/berrysauce/reacty" target="_blank">GitHub</a></li><li class="list-inline-item"><a href="/terms">Terms</a></li><li class="list-inline-item"><a href="/privacy">Privacy</a></li></ul><p class="copyright">berrysauce © 2021</p></footer><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script></body></html>
