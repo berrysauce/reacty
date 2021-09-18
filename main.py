@@ -221,7 +221,7 @@ def getfeedback(key: str, feedback: str, origin: Optional[str] = Header(None)):
     
     if origin is None:
         raise HTTPException(status_code=400, detail="Wrong or missing headers")
-    elif origin != site["domain"]:
+    elif origin != site["domain"] and origin != "www."+site["domain"]:
         raise HTTPException(status_code=400, detail="Wrong or missing headers")
     
     if feedback == "1":
