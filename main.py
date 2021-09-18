@@ -219,9 +219,16 @@ def getfeedback(key: str, feedback: str, origin: Optional[str] = Header(None)):
     if site["locked"] is True:
         raise HTTPException(status_code=401, detail="This account was locked. Contact support for further details.")
     
+    if "http://" in site["domain"]:
+        wwwsubstring = "http://"
+    elif "https://" in site["domain"]:
+        wwwsubstring = "https://"
+        
+    wwwcheck = site["domain"].replace(wwwsubstring, wwwsubstring + "www.")
+    
     if origin is None:
         raise HTTPException(status_code=400, detail="Wrong or missing headers")
-    elif origin != site["domain"] and origin != "www."+site["domain"]:
+    elif origin != site["domain"] and origin != wwwcheck:
         raise HTTPException(status_code=400, detail="Wrong or missing headers")
     
     if feedback == "1":
