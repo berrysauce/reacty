@@ -7,3 +7,4 @@ jinja2
 python-multipart
 python-jose[cryptography]
 sentry-sdk
+dnspython

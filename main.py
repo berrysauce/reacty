@@ -1,3 +1,4 @@
+from ssl import VerifyFlags
 import uvicorn
 from fastapi import FastAPI, Response, Request, HTTPException, Form, status, Depends, Cookie, Header
 from fastapi.staticfiles import StaticFiles
@@ -10,7 +11,7 @@ from typing import Optional
 from deta import Deta
 from dotenv import load_dotenv
 import os
-from tools import hashing
+from tools import hashing, dnsverify
 from datetime import datetime, timedelta
 import sentry_sdk
 import requests
@@ -33,6 +34,7 @@ sitesdb = deta.Base("reacty-sites")
 templates = Jinja2Templates(directory="templates")
 
 app.mount("/assets", StaticFiles(directory="templates/assets"), name="assets")
+app.mount("/forgot/assets", StaticFiles(directory="templates/assets"), name="assets")
 
 SECRET_KEY = str(os.getenv("AUTH_SECRET"))
 ALGORITHM = "HS256"
@@ -93,20 +95,24 @@ def root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/terms")
-def root(request: Request):
+def terms(request: Request):
     return templates.TemplateResponse("terms.html", {"request": request})
 
 @app.get("/privacy")
-def root(request: Request):
+def privacy(request: Request):
     return templates.TemplateResponse("privacy.html", {"request": request})
 
 @app.get("/login")
-def root(request: Request):
+def login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
 @app.get("/signup")
-def root(request: Request):
+def signup(request: Request):
     return templates.TemplateResponse("signup.html", {"request": request})
+
+@app.get("/forgot")
+def forgot(request: Request):
+    return templates.TemplateResponse("forgot-step1.html", {"request": request})
 
 @app.get("/dashboard")
 def dashboard(request: Request, key: str = Depends(get_current_user)):
@@ -127,7 +133,7 @@ def dashboard(request: Request, key: str = Depends(get_current_user)):
 
 """
 -----------------------------------------------------------------------------
-                              BACK END
+                            SIGNUP / LOGIN
 -----------------------------------------------------------------------------
 """
 @app.post("/login/auth")
@@ -165,7 +171,7 @@ def logout(response: Response, key: str = Depends(get_current_user)):
     response.delete_cookie(key="access_token")
     return response
 
-@app.post("/api/create")
+@app.post("/login/create")
 def create(username: str = Form(...), password: str = Form(...)):
     domain = username
     if len(sitesdb.fetch({"domain": domain}).items) != 0:
@@ -193,6 +199,95 @@ def create(username: str = Form(...), password: str = Form(...)):
     response = RedirectResponse(url="/dashboard", status_code=status.HTTP_303_SEE_OTHER)
     response.set_cookie(key="access_token", value=access_token)
     return response
+
+
+"""
+-----------------------------------------------------------------------------
+                            PASSWORD RESET
+-----------------------------------------------------------------------------
+"""
+
+@app.post("/login/reset")
+def loginreset(username: str = Form(...), captcha: str = Form(None, alias="h-captcha-response")):
+    if captcha is None:
+        raise HTTPException(status_code=401, detail="Unauthorized. Captcha failed.")
+    else:
+        if verifycaptcha(captcha) is False:
+            raise HTTPException(status_code=401, detail="Unauthorized. Captcha failed.")
+    
+    domain = username
+    verification = dnsverify.start(domain)
+    if verification is None:
+        raise HTTPException(status_code=400, detail="Reset already in progress")
+    key = verification["key"]
+    return RedirectResponse(url=f"/forgot/2?key={key}", status_code=status.HTTP_303_SEE_OTHER)
+
+@app.get("/login/reset/check")
+def loginresetcheck(key: str):
+    verification = dnsverify.verify(key)
+    if verification is None:
+        raise HTTPException(status_code=404, detail="Reset key not found")
+    else:
+        if dnsverify.get(key)["records"] is True:
+            return {"records": True}
+        else:
+            return {"records": verification}
+
+@app.post("/login/reset/set")
+def loginset(key: str, password: str = Form(...)):
+    verification = dnsverify.get(key)
+    if verification is None:
+        raise HTTPException(status_code=404, detail="Reset key not found")
+    elif verification["records"] is False:
+        raise HTTPException(status_code=404, detail="Reset key not found")
+    
+    site = sitesdb.fetch({"domain": "http://"+verification["domain"]}).items
+    if len(site) != 0:
+        site = site[0]
+    else:
+        site = sitesdb.fetch({"domain": "https://"+verification["domain"]}).items[0]
+    
+    dnsverify.delete(key)
+    sitesdb.update(key=site["key"], updates={"password": hashing.hashpw(password)})
+    return RedirectResponse(url="/login", status_code=status.HTTP_303_SEE_OTHER)
+    
+    
+@app.get("/forgot/2")
+def forgot2(request: Request, key: str):
+    verification = dnsverify.get(key)
+    if verification is None:
+        raise HTTPException(status_code=404, detail="Reset key not found")
+    
+    return templates.TemplateResponse("forgot-step2.html", {
+        "request": request, 
+        "domain": verification["domain"], 
+        "verify_key": verification["verifykey"]
+    })
+
+@app.get("/forgot/3")
+def forgot3(request: Request, key: str):
+    verification = dnsverify.get(key)
+    dt = datetime.now()
+    if verification is None:
+        raise HTTPException(status_code=404, detail="Reset key not found")
+    elif verification["records"] is False:
+        raise HTTPException(status_code=404, detail="Reset key not found")
+    elif dt.strftime("%d-%m-%Y") != verification["valid"]:
+        dnsverify.delete(key)
+        raise HTTPException(status_code=400, detail="Reset key invalid")
+    
+    return templates.TemplateResponse("forgot-step3.html", {
+        "request": request, 
+        "key": verification["key"],
+    })
+
+
+
+"""
+-----------------------------------------------------------------------------
+                               BACK END
+-----------------------------------------------------------------------------
+"""
 
 @app.get("/api/{key}/widget.js")
 def widgetjs(key: str):

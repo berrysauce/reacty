@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"><title>reacty » User feedback, but simple</title><meta name="description" content="Collecting user feedback in a simple and privacy friendly way is easy with reacty. Sign up for free."><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:100,200,300,400,500,600,700,800,900&amp;display=swap"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"><link rel="stylesheet" href="assets/css/styles.min.css"><script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+<link rel="manifest" href="/assets/img/site.webmanifest">
+<link rel="mask-icon" href="/assets/img/safari-pinned-tab.svg" color="#5bdc78">
+<link rel="shortcut icon" href="/assets/img/favicon.ico">
+<meta name="msapplication-TileColor" content="#00a300">
+<meta name="msapplication-config" content="/assets/img/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c5d1704791d642f9a64b5086a05c691a"}'></script><!-- End Cloudflare Web Analytics -->
+</head><body style="font-family: Inter, sans-serif;"><section class="highlight-clean" style="min-height: 80vh;"><div class="container d-flex d-xl-flex justify-content-center justify-content-xl-center align-items-xl-center" style="margin-bottom: 60px;"><nav class="navbar navbar-light navbar-expand-md navigation-clean" style="min-width: 80%;max-width: 80%;"><div class="container"><a class="navbar-brand" href="/" style="margin-left: -20px;"><img src="assets/img/logo-black.png" style="width: 135px;margin-left: 0px;"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navcol-1"><ul class="navbar-nav ms-auto"><li class="nav-item"><a class="nav-link" href="/" style="color: rgb(0,108,11)!important;"><strong>Get started</strong></a></li><li class="nav-item"><a class="nav-link" href="https://docs.reacty.net" style="color: rgb(0,108,11)!important;" target="_blank"><strong>Help</strong></a></li><li class="nav-item"><a class="nav-link" href="/login" style="color: rgb(0,108,11)!important;"><strong>Log in</strong></a></li><li class="nav-item"><a class="nav-link" href="/signup" style="color: rgb(0,108,11)!important;border-radius: 10px;background: #a0f9a9;margin-left: 10px;margin-right: -10px;"><strong>Sign up</strong></a></li></ul></div></div></nav></div><div class="container" style="margin-top: 80px;margin-bottom: 100px;"><div class="intro"><h2 class="text-start" style="margin-bottom: 15px;color: rgb(0,0,0);line-height: 38px;">Please verify that you're the domain owner</h2><div id="failedAlert" style="display: none;" role="alert" class="alert alert-danger"><span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-circle-x" style="font-size: 20px;margin-bottom: 3px;">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M10 10l4 4m0 -4l-4 4"></path>
+        </svg><strong> Error </strong>- Try again.</span></div><div id="successAlert" style="display: none;" role="alert" class="alert alert-success"><span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-circle-check" style="font-size: 20px;margin-bottom: 3px;">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M9 12l2 2l4 -4"></path>
+        </svg><strong> That worked! </strong>You&#39;ll be redirected shortly.</span><span role="status" class="spinner-border spinner-border-sm float-end" style="margin-top: 5px;"></span></div><p class="text-start">To reset your password, please create the following TXT record. Don't know how that works? Click the "How do I do this" button below to show a guide.<br></p><div><a class="btn btn-primary" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button" style="background: rgba(13,110,253,0);color: rgb(0,0,0);border-style: none;padding: 0px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-info-circle" style="font-size: 20px;margin-bottom: 3px;">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+  <circle cx="12" cy="12" r="9"></circle>
+  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+  <polyline points="11 12 12 12 12 16 13 16"></polyline>
+</svg>&nbsp;<strong>How do I do this?</strong></a><div class="collapse" id="collapse-1"><p style="color: rgb(0,0,0);">Help articles for adding a TXT record with:<br>- <a href="https://support.cloudflare.com/hc/en-us/articles/360019093151-Managing-DNS-records-in-Cloudflare#h_60566325041543261564371" target="_blank">Cloudflare</a><br>- <a href="https://www.godaddy.com/help/add-a-txt-record-19232" target="_blank">GoDaddy</a><br>- <a href="https://help.hover.com/hc/en-us/articles/217282457-How-to-Edit-DNS-records-A-AAAA-CNAME-MX-TXT-SRV-#h_a07796a7-ebe0-4b4c-a51f-6ade385478ee" target="_blank">Hover</a><br>- <a href="https://www.name.com/support/articles/115004972547-Adding-a-TXT-Record" target="_blank">Name.com</a><br>- <a href="https://www.namecheap.com/support/knowledgebase/article.aspx/317/2237/how-do-i-add-txtspfdkimdmarc-records-for-my-domain/" target="_blank">Namecheap</a><br>or search for "add txt record (your registrars name)"</p></div></div><div class="row"><div class="col-lg-2"><p style="color: rgb(0,0,0);font-size: 15px;margin-bottom: 5px;margin-top: 15px;"><strong>TYPE</strong></p><code style="font-size: 16px;background: #eaeaea;padding: 6px 16px;border-radius: 5px;margin-top: 0px;">TXT</code></div><div class="col-lg-10"><p style="color: rgb(0,0,0);font-size: 15px;margin-bottom: 5px;margin-top: 15px;"><strong>HOST</strong></p><code style="font-size: 16px;background: #eaeaea;padding: 6px 16px;border-radius: 5px;margin-top: 0px;">{{ domain }}</code></div><div class="col"><p style="color: rgb(0,0,0);font-size: 15px;margin-bottom: 5px;margin-top: 15px;"><strong>VALUE</strong></p><code style="font-size: 16px;background: #eaeaea;padding: 6px 16px;border-radius: 5px;margin-top: 0px;">reacty-verify={{ verify_key }}</code></div></div><p class="text-start" style="margin-top: 25px;">The site is checking the records in the background, <strong>please keep this tab open.&nbsp;It might take a few minutes.</strong></p><p style="color: rgb(0,0,0);"><span role="status" class="spinner-grow spinner-grow-sm textwarning text-warning"></span><strong>  Checking records</strong></p>
+
+<script>
+    setInterval(function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const key = urlParams.get("key");
+        
+        fetch("/login/reset/check?key="+key)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (Json) {
+            if (Json.records == true) {
+                document.getElementById("failedAlert").style.display = "none";
+                document.getElementById("successAlert").style.display = "block";
+                setTimeout(function(){
+                    window.location.replace("/forgot/3?key="+key);
+                },3000);
+            };
+          })
+          .catch(function (error) {
+            console.log("Error: " + error);
+            document.getElementById("failedAlert").textContent="Error - "+error;
+            document.getElementById("failedAlert").style.display = "block";
+          });
+    }, 10000);
+</script></div></div></section><footer class="footer-basic" style="margin-top: -15px;"><ul class="list-inline" style="font-size: 14px;"><li class="list-inline-item"><a href="/">Home</a></li><li class="list-inline-item"><a href="https://docs.reacty.net" target="_blank">Help</a></li><li class="list-inline-item"><a href="https://github.com/berrysauce/reacty" target="_blank">GitHub</a></li><li class="list-inline-item"><a href="/terms">Terms</a></li><li class="list-inline-item"><a href="/privacy">Privacy</a></li></ul><p class="copyright">berrysauce © 2021</p></footer><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script></body></html>
