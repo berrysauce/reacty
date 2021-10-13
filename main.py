@@ -18,11 +18,20 @@ import requests
 import json
 
 
-# Initialize Sentry
+"""
+-----------------------------------------------------------------------------
+                                SETUP
+-----------------------------------------------------------------------------
+"""
+
+# INITIALIZE SENTRY ############################################
+
 sentry_sdk.init(
     "https://945096747f3a40a68a51ed8d493be8d8@o309026.ingest.sentry.io/5955006",
     traces_sample_rate=1.0
 )
+
+# APPLICATION SETUP ############################################
 
 load_dotenv()
 app = FastAPI(
@@ -40,6 +49,8 @@ SECRET_KEY = str(os.getenv("AUTH_SECRET"))
 ALGORITHM = "HS256"
 # PRODUCTION EXPIRY: 720
 ACCESS_TOKEN_EXPIRE_MINUTES = 720
+
+# FUNCTION AND CLASS DECLARATION ###############################
 
 def createtoken(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
@@ -172,7 +183,13 @@ def logout(response: Response, key: str = Depends(get_current_user)):
     return response
 
 @app.post("/login/create")
-def create(username: str = Form(...), password: str = Form(...)):
+def create(username: str = Form(...), password: str = Form(...), captcha: str = Form(None, alias="h-captcha-response")):
+    if captcha is None:
+        raise HTTPException(status_code=401, detail="Unauthorized. Captcha failed.")
+    else:
+        if verifycaptcha(captcha) is False:
+            raise HTTPException(status_code=401, detail="Unauthorized. Captcha failed.")
+    
     domain = username
     if len(sitesdb.fetch({"domain": domain}).items) != 0:
         raise HTTPException(status_code=409, detail="Domain is already registered.")
@@ -278,7 +295,7 @@ def forgot3(request: Request, key: str):
     
     return templates.TemplateResponse("forgot-step3.html", {
         "request": request, 
-        "key": verification["key"],
+        "key": verification["key"]
     })
 
 
