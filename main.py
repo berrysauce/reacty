@@ -315,7 +315,7 @@ def forgot3(request: Request, key: str):
 def widgetjs(key: str):
     # add site key to widget code
     site = sitesdb.get(key)
-    if site is False:
+    if site is False or site is None:
         raise HTTPException(status_code=404, detail="Site key not found")
     
     if site["locked"] is True:
