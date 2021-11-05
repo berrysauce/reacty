@@ -226,13 +226,18 @@ def create(username: str = Form(...), password: str = Form(...), captcha: str = 
 
 @app.post("/login/reset")
 def loginreset(username: str = Form(...), captcha: str = Form(None, alias="h-captcha-response")):
+    domain = username
+    try:
+        site = sitesdb.fetch({"domain": domain}).items[0]
+    except IndexError:
+        raise HTTPException(status_code=401, detail="Reset request failed. Domain is not registered.")
+    
     if captcha is None:
         raise HTTPException(status_code=401, detail="Unauthorized. Captcha failed.")
     else:
         if verifycaptcha(captcha) is False:
             raise HTTPException(status_code=401, detail="Unauthorized. Captcha failed.")
     
-    domain = username
     verification = dnsverify.start(domain)
     if verification is None:
         raise HTTPException(status_code=400, detail="Reset already in progress")
