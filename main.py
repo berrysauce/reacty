@@ -1,4 +1,3 @@
-from ssl import VerifyFlags
 import uvicorn
 from fastapi import FastAPI, Response, Request, HTTPException, Form, status, Depends, Cookie, Header
 from fastapi.staticfiles import StaticFiles
@@ -8,6 +7,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from jose import JWTError, jwt
 from pydantic import BaseModel
 from typing import Optional
+import secure
 from deta import Deta
 from dotenv import load_dotenv
 import os
@@ -49,6 +49,17 @@ SECRET_KEY = str(os.getenv("AUTH_SECRET"))
 ALGORITHM = "HS256"
 # PRODUCTION EXPIRY: 720
 ACCESS_TOKEN_EXPIRE_MINUTES = 720
+
+# SECURE HEADERS & CONTENT SECURITY POLCIY #####################
+
+#secure_csp = (
+#    secure.ContentSecurityPolicy()
+#    .font_src("'self'", "https://fonts.googleapis.com", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com")
+#    .script_src("'self'", "https://*.hcaptcha.com", "https://*.cloudflareinsights.com", "https://*.cloudflare.com", "https://cdn.jsdelivr.net")
+#)
+#secure_headers = secure.Secure(csp=secure_csp)
+
+secure_headers = secure.Secure()
 
 # FUNCTION AND CLASS DECLARATION ###############################
 
@@ -483,6 +494,19 @@ def deletewidget(key: str = Depends(get_current_user)):
         raise HTTPException(status_code=404, detail="Site key not found")
     sitesdb.delete(key)
     return RedirectResponse(url="/login", status_code=status.HTTP_303_SEE_OTHER)
+
+
+"""
+-----------------------------------------------------------------------------
+                             MIDDLEWARES
+-----------------------------------------------------------------------------
+"""
+
+@app.middleware("http")
+async def set_secure_headers(request, call_next):
+    response = await call_next(request)
+    secure_headers.framework.fastapi(response)
+    return response
         
         
 """
