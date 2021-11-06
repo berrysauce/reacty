@@ -10,6 +10,10 @@ deta = Deta(os.getenv("DETA_TOKEN"))
 verifydb = deta.Base("reacty-siteverify")
 
 def start(domain: str):
+    """
+    Starts the domain verification
+    """
+    
     verification = verifydb.fetch({"domain": domain}).items
     if len(verification) == 0:
         dt = datetime.now()
@@ -25,6 +29,10 @@ def start(domain: str):
         return None
  
 def get(key: str):
+    """
+    Gets the current verification from DB
+    """
+    
     verification = verifydb.get(key)
     if verification is None:
         return None
@@ -32,6 +40,10 @@ def get(key: str):
         return verification
 
 def verify(key: str):
+    """
+    Verifies the verification key
+    """
+    
     verification = verifydb.get(key)
     if verification is None:
         return None
@@ -57,6 +69,10 @@ def verify(key: str):
         return False
     
 def delete(key: str):
+    """
+    Deletes the verification from DB
+    """
+    
     try:
         verifydb.delete(key)
         return True

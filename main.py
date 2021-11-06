@@ -11,7 +11,7 @@ from typing import Optional
 from deta import Deta
 from dotenv import load_dotenv
 import os
-from tools import hashing, dnsverify
+from tools import hashing, dnsverify, htmlgen
 from datetime import datetime, timedelta
 import sentry_sdk
 import requests
@@ -53,6 +53,10 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 720
 # FUNCTION AND CLASS DECLARATION ###############################
 
 def createtoken(data: dict, expires_delta: Optional[timedelta] = None):
+    """
+    Creates JWT token
+    """
+    
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
@@ -63,6 +67,10 @@ def createtoken(data: dict, expires_delta: Optional[timedelta] = None):
     return encoded_jwt
 
 def get_current_user(access_token: Optional[str] = Cookie(None)):
+    """
+    Gets current user by JWT token
+    """
+    
     if access_token is None:
         #raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed.")
         return None
@@ -80,6 +88,10 @@ def get_current_user(access_token: Optional[str] = Cookie(None)):
     return site["key"]
 
 def verifycaptcha(response: str):
+    """
+    Verifies that hCaptcha result is valid
+    """
+    
     data = {"secret": str(os.getenv("CAPTCHA_SECRET")), "response": response}
     r = requests.post("https://hcaptcha.com/siteverify", data=data)
     if r.status_code == 200 and json.loads(r.text)["success"] == True:
@@ -114,8 +126,19 @@ def privacy(request: Request):
     return templates.TemplateResponse("privacy.html", {"request": request})
 
 @app.get("/login")
-def login(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+def login(request: Request, error: Optional[str] = None):
+    if error == None:
+        popup = ""
+    elif error == "auth":
+        popup = htmlgen.loginalert("Wrong domain/password.")
+    elif error == "captcha":
+        popup = htmlgen.loginalert("Captcha failed.")
+    elif error == "locked":
+        popup = htmlgen.loginalert("This account was locked. Contact support for further details.")
+    else:
+        popup = htmlgen.loginalert("Login error.")
+        
+    return templates.TemplateResponse("login.html", {"request": request, "login_alert": popup})
 
 @app.get("/signup")
 def signup(request: Request):
@@ -149,23 +172,27 @@ def dashboard(request: Request, key: str = Depends(get_current_user)):
 """
 @app.post("/login/auth")
 def loginauth(response: Response, username: str = Form(...), password: str = Form(...), captcha: str = Form(None, alias="h-captcha-response")):
+    """
+    Handles user authentication 
+    """
+    
     domain = username
     if captcha is None:
-        raise HTTPException(status_code=401, detail="Unauthorized. Captcha failed.")
+        return RedirectResponse(url=f"/login?error=captcha", status_code=status.HTTP_303_SEE_OTHER)
     else:
         if verifycaptcha(captcha) is False:
-            raise HTTPException(status_code=401, detail="Unauthorized. Captcha failed.")
+            return RedirectResponse(url=f"/login?error=captcha", status_code=status.HTTP_303_SEE_OTHER)
     
     try:
         site = sitesdb.fetch({"domain": domain}).items[0]
     except IndexError:
-        raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed.")
+        return RedirectResponse(url=f"/login?error=auth", status_code=status.HTTP_303_SEE_OTHER)
     
     if hashing.verifypw(site["password"], password) is False:
-        raise HTTPException(status_code=401, detail="Unauthorized. Authentication failed.")
+        return RedirectResponse(url=f"/login?error=auth", status_code=status.HTTP_303_SEE_OTHER)
     
     if site["locked"] is True:
-        raise HTTPException(status_code=401, detail="This account was locked. Contact support for further details.")
+        return RedirectResponse(url=f"/login?error=locked", status_code=status.HTTP_303_SEE_OTHER)
 
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = createtoken(
@@ -178,12 +205,20 @@ def loginauth(response: Response, username: str = Form(...), password: str = For
 
 @app.get("/logout")
 def logout(response: Response, key: str = Depends(get_current_user)):
+    """
+    Logs out user
+    """
+    
     response = RedirectResponse(url="/login", status_code=status.HTTP_303_SEE_OTHER)
     response.delete_cookie(key="access_token")
     return response
 
 @app.post("/login/create")
 def create(username: str = Form(...), password: str = Form(...), captcha: str = Form(None, alias="h-captcha-response")):
+    """
+    Creates a new user
+    """
+    
     if captcha is None:
         raise HTTPException(status_code=401, detail="Unauthorized. Captcha failed.")
     else:
@@ -226,6 +261,10 @@ def create(username: str = Form(...), password: str = Form(...), captcha: str = 
 
 @app.post("/login/reset")
 def loginreset(username: str = Form(...), captcha: str = Form(None, alias="h-captcha-response")):
+    """
+    Handles password resets
+    """
+    
     domain = username
     try:
         site = sitesdb.fetch({"domain": domain}).items[0]
@@ -246,6 +285,10 @@ def loginreset(username: str = Form(...), captcha: str = Form(None, alias="h-cap
 
 @app.get("/login/reset/check")
 def loginresetcheck(key: str):
+    """
+    Checks if the correct TXT DNS record to reset the user's password is set
+    """
+    
     verification = dnsverify.verify(key)
     if verification is None:
         raise HTTPException(status_code=404, detail="Reset key not found")
@@ -257,6 +300,10 @@ def loginresetcheck(key: str):
 
 @app.post("/login/reset/set")
 def loginset(key: str, password: str = Form(...)):
+    """
+    Sets a new account password
+    """
+    
     verification = dnsverify.get(key)
     if verification is None:
         raise HTTPException(status_code=404, detail="Reset key not found")
@@ -276,6 +323,10 @@ def loginset(key: str, password: str = Form(...)):
     
 @app.get("/forgot/2")
 def forgot2(request: Request, key: str):
+    """
+    Displays fogot (step 2) page
+    """
+    
     verification = dnsverify.get(key)
     if verification is None:
         raise HTTPException(status_code=404, detail="Reset key not found")
@@ -288,6 +339,10 @@ def forgot2(request: Request, key: str):
 
 @app.get("/forgot/3")
 def forgot3(request: Request, key: str):
+    """
+    Displays fogot (step 3) page
+    """
+    
     verification = dnsverify.get(key)
     dt = datetime.now()
     if verification is None:
@@ -313,6 +368,10 @@ def forgot3(request: Request, key: str):
 
 @app.get("/api/{key}/widget.js")
 def widgetjs(key: str):
+    """
+    Creates and serves widget for site
+    """
+    
     # add site key to widget code
     site = sitesdb.get(key)
     if site is False or site is None:
@@ -329,6 +388,10 @@ def widgetjs(key: str):
 
 @app.get("/api/{key}/report/{feedback}")
 def getfeedback(key: str, feedback: str, origin: Optional[str] = Header(None)):
+    """
+    Receives and stores feedback reported from the widget
+    """
+    
     site = sitesdb.get(key)
     if not site:
         raise HTTPException(status_code=404, detail="Site key not found")
@@ -378,6 +441,10 @@ def getfeedback(key: str, feedback: str, origin: Optional[str] = Header(None)):
         
 @app.post("/api/settings")
 def widgetsettings(key: str = Depends(get_current_user), text: str = Form(...)):
+    """
+    Changes account settings
+    """
+    
     site = sitesdb.get(key)
     if site is False:
         raise HTTPException(status_code=404, detail="Site key not found")
@@ -389,6 +456,10 @@ def widgetsettings(key: str = Depends(get_current_user), text: str = Form(...)):
 
 @app.get("/api/clear")
 def clearwidget(key: str = Depends(get_current_user)):
+    """
+    Clears the account's feedback
+    """
+    
     site = sitesdb.get(key)
     if site is False:
         raise HTTPException(status_code=404, detail="Site key not found")
@@ -403,6 +474,10 @@ def clearwidget(key: str = Depends(get_current_user)):
 
 @app.get("/api/delete")
 def deletewidget(key: str = Depends(get_current_user)):
+    """
+    Deletes the account
+    """
+    
     site = sitesdb.get(key)
     if site is False:
         raise HTTPException(status_code=404, detail="Site key not found")

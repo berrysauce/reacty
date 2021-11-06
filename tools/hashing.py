@@ -6,12 +6,19 @@ import os
 
 
 def hashpw(password):
+    """
+    Hashes the password on signup
+    """
+    
     salt = hashlib.sha256(os.urandom(60)).hexdigest().encode('ascii')
     pwhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), salt, 100000)
     pwhash = binascii.hexlify(pwhash)
     return (salt + pwhash).decode('ascii')
 
 def verifypw(stored_password, provided_password):
+    """
+    Verifies the stored and entered password
+    """
     salt = stored_password[:64]
     stored_password = stored_password[64:]
     pwhash = hashlib.pbkdf2_hmac('sha512', provided_password.encode('utf-8'), salt.encode('ascii'), 100000)
