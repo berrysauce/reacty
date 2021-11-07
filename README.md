@@ -9,7 +9,10 @@
 </p>
 <p align="center">Finally, a simple and privacy oriented website feedback widget</p>
 
-> ⚠ reacty is still a work-in-progress project. I can not guarantee a safe environment and stats could be cleared at any time. Please remember to choose a different password for every online service.
+> ⚠ reacty is still in beta. Please remember to choose a different password for every online service.
+
+🌍 Website: https://reacty.net \
+📖 Documentation: https://docs.reacty.net
 
 ## What is reacty?
 It's a feedback widget you can implement in your site with one line of code. It's responsive, works across platforms, and it doesn't collect user specific data.
