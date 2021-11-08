@@ -57,7 +57,8 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 720
 #    .font_src("'self'", "https://fonts.googleapis.com", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com")
 #    .script_src("'self'", "https://*.hcaptcha.com", "https://*.cloudflareinsights.com", "https://*.cloudflare.com", "https://cdn.jsdelivr.net")
 #)
-#secure_headers = secure.Secure(csp=secure_csp)
+#
+# secure_headers = secure.Secure(csp=secure_csp)
 
 secure_headers = secure.Secure()
 
