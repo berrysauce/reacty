@@ -398,7 +398,7 @@ def widgetjs(key: str):
     return Response(content=widget, media_type="text/javascript")
 
 @app.get("/api/{key}/report/{feedback}")
-def getfeedback(key: str, feedback: str, origin: Optional[str] = Header(None)):
+def getfeedback(key: str, feedback: str, origin: Optional[str] = Header(None), referer: Optional[str] = Header(None)):
     """
     Receives and stores feedback reported from the widget
     """
@@ -414,13 +414,20 @@ def getfeedback(key: str, feedback: str, origin: Optional[str] = Header(None)):
         wwwsubstring = "http://"
     elif "https://" in site["domain"]:
         wwwsubstring = "https://"
-        
+    
     wwwcheck = site["domain"].replace(wwwsubstring, wwwsubstring + "www.")
     
-    if origin is None:
-        raise HTTPException(status_code=400, detail="Wrong or missing headers")
-    elif origin != site["domain"] and origin != wwwcheck:
-        raise HTTPException(status_code=400, detail="Wrong or missing headers")
+    if origin == None:
+        if referer == None:
+            raise HTTPException(status_code=400, detail=f"Missing headers")
+        elif site["domain"] not in referer and wwwcheck not in referer:
+            raise HTTPException(status_code=400, detail=f"Wrong headers")
+        
+    if referer == None:
+        if origin == None:
+            raise HTTPException(status_code=400, detail=f"Missing headers")
+        elif site["domain"] not in origin and wwwcheck not in origin:
+            raise HTTPException(status_code=400, detail=f"Wrong headers")
     
     if feedback == "1":
         newamount = site["feedback"]["positive"] + 1
